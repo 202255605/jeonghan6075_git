@@ -1,0 +1,143 @@
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
+def add(data):
+    node = head
+    while node.next:
+        node = node.next
+    node.next = Node(data) 
+
+node1 = Node(1) # node1.data=1, node1.next=None 인 상태
+head = node1    # 이게 된다. --> 위의 함수 정의의 당시에는 head가 없었는데 밑에서 선언을 해도 문법상 문제가 없다 
+for index in range(2, 10):
+    add(index)
+
+# 추가 기능 구현에서는 이 부분까지 이용합니다.
+
+node = head
+while node.next:
+    print(node.data)
+    node = node.next
+print (node.data)
+
+# 문제 1 : 현재 상태의 링크드 리스트를 안다고 가정할 떄 1.5를 자신의 데이터로 가지는 
+# 링크드 리스트를 새로 만들기
+
+node3=Node(1.5)
+
+node = head # head 는 데이터가 1인 상태로 정의되어있다.
+
+while node.data:
+    if node.data == 1:
+        node_tempo = node.next
+        node.next = node3
+        node3.next = node_tempo
+    else:
+        node = node.next
+
+# 문제 2 : 링크드 리스트의 핵심 기능인 1. 전체 출력(desc) , 2. 데이터 추가(add)
+# 를 가능케 하는 새로운 객체인 nodemanagment를 구현 후 실행
+
+ 
+class Node:
+
+    def _init_(self,data,next=None):
+        self.data = data
+        self.next = next
+        
+    # 일단 객체를 생성을 해야 더 데이터를 만들던지 말던지 하니까
+
+class nodemangment:
+    
+    def _init_(self,data):
+        self.head=Node(data)
+    
+    def add(self,add_data): # 객체 생성 당시 self 작성은 모든 메서드( _init_ 포함)에서 필수
+
+        node = self.head
+
+        if(self.head ==None): # 다른 말로 self.head == ''
+            self.head = Node(add_data)
+        else:
+            while(node.data):
+                node=node.next
+            node.next = Node(add_data)
+
+    def desc(self):
+        # 별다른 인자가 필요는 없다.
+        node = self.head
+
+        while(node.data):
+            print(node.data)
+            node=node.next
+
+# 추가 기능 구현
+
+    def position_purposing(self,add_data_purposing):
+
+        check_point_small = 0
+        check_point_big = 0
+        check_true_or_false=[True,True]
+
+        node = self.head
+
+        while(node.data):
+
+            check_point_small = node.data
+            node_tempo = node.next
+            check_point_big =  node_tempo.data
+
+            if(check_point_small <= add_data_purposing) :
+                check_true_or_false[0] = False
+          
+            if(check_point_big >= add_data_purposing) :
+                check_true_or_false[1] = False
+
+            if(check_true_or_false[0] == False and check_true_or_false[1] == False):
+                
+                node.next = Node(add_data_purposing)
+                node_tempo_2 = node.next
+                node_tempo_2.next = node_tempo
+
+                break
+
+            node = node.next 
+
+
+    def delete(self,data):
+        if self.head == "":
+            print(" 해당 값을 가진 노드가 존재하지 않습니다.")
+
+#  내가 지우려는 데이터 즉 data가 head 의 데이터일때 
+        if self.head.data == data:
+            temp = self.head
+            self.head = self.head.next
+            del temp # del 이라는 건 리스트에서도 되더니 이런 링크드 리스트 즉 객체를 다루는 상황에서도 사용이 가능하다.
+        else: # 지우려고 하는 데이터가 head 다 아닌 중간 이나 마지막 순번의 데이터일때
+            node = self.head
+            while node.next:
+                if node.next.data == data:
+                    temp = node.next
+                    node.next = node.next.next # 이런 식의 객체의 이중활용 표기도 가능하시다는 점
+                    del temp
+                    return # 이 return은 왜 있는 거지
+                else:
+                    node = node.next 
+
+# 검색엔진 만들기 
+# 구현할 기능 : 인자로 들어온 데이터가 몇번째 노드인지, node.next에 있는 주소값 출력하기?
+
+    def search(self,data):  # 항상 객체(class) 함수에 들어가는 인자는 self를 기본으로 하나 가져야 한다.
+        node = self.head
+        count = 1
+        while node.next:
+            if node.data == data:
+                print(count)
+                print(node.next)
+                # return node 라고 작성을 해 놓으면 사실상 실행이 되어서 객체인 node의 data값과 주소값까지 나온다.
+            else:
+                node = node.next
+                count = count+1
