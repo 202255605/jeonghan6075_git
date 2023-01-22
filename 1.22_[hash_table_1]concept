@@ -1,0 +1,38 @@
+# 해쉬테이블을 이용한 전화번호부 구현 
+
+# 1.들어오는 데이터에 따른 고유한 key 값 추출함수 생성
+# 2.추출된 key값을 넣을 해쉬함수 구현
+# 3.추출된 해쉬값을 해당 인덱스로 가지는 배열에 value를 저장하는 함수를 구현
+
+#일단 해쉬테이블부터 생성(인덱스가 해쉬값이라 그냥 list로 생성)
+hash_table = list([i for i in range(10)])
+# python list comprehensin --> list[0 for _ in range(10)] 하면 모든 value가 0으로 구성
+
+def key_extraction(data):
+    key = ord[data[0]]
+    return data
+    # 입력으로 들어올 data : string -->  ASCII값을 key로 설정 --> ord 내장함수 이용
+    
+def hash_extraction(key):
+    hash_value = key%5 # hash_func의 역할 : 동적 값을 정적 값으로 변환하는 역할
+    return hash_value
+
+def storage_data(data,value):
+    key = key_extraction(data)
+    index_in_hash_table = hash_extraction(key)
+    hash_table[index_in_hash_table] = value
+    
+storage_data('Andy', '01055553333')
+storage_data('Dave', '01044443333')
+storage_data('Trump', '01022223333')
+
+def get_data(data):
+    key = key_extraction(data)
+    hash_value = hash_extraction(key)
+    return(hash_table[hash_value])
+
+get_data('Andy')
+
+# 파이썬 내장함수 중 hash 라는 함수가 있는데 이 함수를 이용하면
+# 내장함수에 고유하게 저장되어 있는 hash함수를 이용해 고유한 key값을 얻어오는 함수를 만들 수 있다 있다
+# 꼭 key 값에 이용해야만 하는 게 아님. 어떤 고유한 값을 생성할 수 있다. --> hash 함수라서
