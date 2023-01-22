@@ -1,0 +1,24 @@
+# 알고리즘1: 1부터 n까지의 합을 구하는 알고리즘1
+# 합을 기록할 변수를 만들고 0을 저장
+# n을 1부터 1씩 증가하면서 반복
+# 반복문 안에서 합을 기록할 변수에 1씩 증가된 값을 더함
+# 반복이 끝나면 합을 출력
+
+def sum_all(n):
+    sum = 0
+    for index in range(1,n+1):
+        sum = sum + index    # sum+=index
+    print(sum)               # return sum
+    
+# 테스트 --> sum_all(10)
+
+# 1 부터 n까지의 합을 구하는 수학공식 : n(n+1) / 2
+
+def sum_all_different_way(n):
+    return int(n(n+1)/2) # 정수형만을 return 없으면 float형이 나온다
+
+# 시간 복잡도 계산
+# sum_all: O(n)
+# sum_all_different_way : O(1) # 실행 식이랑 헷갈려서 O(n**2) 아님 주의
+# 반복문을 봤을때 그 반복문의 실행횟수가 포인트
+# O(1) < O(n) --> def_different_way의 시간복잡도가 더 작다 --> 더 효율적 알고리즘
