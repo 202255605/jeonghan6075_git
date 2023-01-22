@@ -1,0 +1,42 @@
+# 해쉬 테이블 코드에 Linear Probling 기법으로 충돌해결 코드를 추가해보기
+# 1. 해쉬 함수: key % 8
+# 2. 해쉬 키 생성: hash(data)
+
+hash_table = list([0 for i in range(8)])
+
+def get_key(data):
+    return hash(data) # key값의 중복은 절대 불가 --> 내장 hash함수
+
+def hash_function(key):
+    return key % 8   # hash값이 중복될 수는 없다.
+
+def save_data(data, value):
+    # openchaining 구현 시점 --> 링크드 리스트와 비슷한 중복 리스트의 생성을 이용
+    index_key = get_key(data) # 절대 중복될 수 없다는 특성
+    hash_address = hash_function(index_key)
+    if(hash_table[hash_function[get_key(data)]] != 0):
+        # 중복된 데이터 즉 이미 이 데이터가 저장되지는 않았는지를 검사 후 추가
+        for index in range(hash_address,len(hash_table)): # 검사부터 시작해야 해서 hash_address이 시작(! +1) 
+            if(hash_table[index][0] == index_key):  # 중복 불가
+                    hash_table[index][1] = value # 변경용 기능 구현
+                    return 
+                # return 으로 인해 변경 기능이 끝나면 save_data 함수가 종료
+            else:
+                hash_table[index] = [index_key,value]   # hash_table[index] == None 일때
+            
+    else:
+        hash_table[hash_function[get_key(data)]]=[index_key,value]# [[index_key,value]] 가 아닌 []의 이유 : 링크드 리스트 아니라서                    
+        
+def read_data(data):
+    hash_address = hash_function(get_key(data))
+    if(hash_table[hash_address] != None):
+        if(hash_table[hash_address][0] != get_key(data)):
+            for index in range(hash_address,len(hash_table[hash_address])):
+                if(hash_table[index] == None): # HOLY
+                    return None # 내가 찾고 싶은 값을 찾지도 못 했는데 빈칸이 나온다는 건 그 데이터가 없다는 말이니까                           
+                elif(hash_table[index][0] == data):
+                    return hash_table[index][1]
+        else:
+            return hash_table[hash_address][1]
+    else:
+        return None
